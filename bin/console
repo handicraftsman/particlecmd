@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+
+require 'bundler/setup'
+require 'particlecmd'
+
+$sample = ParticleCMD::Definition.new 'add' do |d|
+  d.positional 'a', description: 'First value'
+  d.positional 'b', description: 'Second value'
+  
+  d.collect_extra
+
+  d.flag 'multiply', description: 'Multiply instead of adding'
+
+  d.option 'divide', argname: 'X', description: 'Divide the result by X'
+end
+
+require 'shellwords'
+puts ($sample.match ParticleCMD::Info.new Shellwords.split '1 2 3 \\\' 4 5 "6 7\' 8" --multiply --divide=123').inspect
+
+require 'irb'
+IRB.start(__FILE__)
