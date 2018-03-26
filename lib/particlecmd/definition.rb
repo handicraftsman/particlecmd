@@ -13,7 +13,9 @@ class ParticleCMD::Definition
   def self.from_string(name, string)
     d = new name do end
     string.split.each do |word|
-      if word[0] == '-'
+      if word == '...'
+        @collecting = true
+      elsif word[0] == '-'
         i = word.match(/-+(.+?)(=(.+))?$/)
         if i[3]
           d.option i[1], argname: i[3]
@@ -82,6 +84,7 @@ class ParticleCMD::Definition
     @options.each do |o|
       s << "[--#{o[:name]}=#{o[:argname]}] "
     end
+    s << "..." if @collecting
     s
   end
 
