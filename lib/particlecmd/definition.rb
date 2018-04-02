@@ -13,7 +13,6 @@ class ParticleCMD::Definition
   def self.from_string(name, string)
     d = new name do end
     string.split(' ').each do |word|
-      puts word == '...'
       if word == '...'
         d.collecting = true
       elsif word[0] == '-'
