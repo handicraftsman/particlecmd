@@ -1,5 +1,5 @@
 class ParticleCMD::Definition
-  attr_accessor :name
+  attr_accessor :name, :positionals, :flags, :options, :collecting
   
   def initialize(name)
     @name        = name
@@ -12,9 +12,10 @@ class ParticleCMD::Definition
 
   def self.from_string(name, string)
     d = new name do end
-    string.split.each do |word|
+    string.split(' ').each do |word|
+      puts word == '...'
       if word == '...'
-        @collecting = true
+        d.collecting = true
       elsif word[0] == '-'
         i = word.match(/-+(.+?)(=(.+))?$/)
         if i[3]
@@ -76,7 +77,7 @@ class ParticleCMD::Definition
     s = ''
     s << "#{@name} " if include_name
     @positionals.each do |p|
-      s << "#{p[:name]} "
+      s << "<#{p[:name]}> "
     end
     @flags.each do |f|
       s << "[--#{f[:name]}] "
