@@ -100,11 +100,13 @@ class ParticleCMD::Definition
     @positionals.each do |p|
       s << (sprintf "    %*s  %s\n", nm, p[:name], p[:description])
     end
+    s << "\n"
     @flags.each do |f|
       s << (sprintf "    %*s  %s\n", nm, "--#{f[:name]}", f[:description])
     end
+    s << "\n"
     @options.each do |o|
-      s << (sprintf "    %*s=%s  %s", nm-2, "--#{o[:name]}", o[:argname], o[:description])
+      s << (sprintf "    %*s=%s  %s\n", nm-o[:argname].length-1, "--#{o[:name]}", o[:argname], o[:description])
     end
     s
   end

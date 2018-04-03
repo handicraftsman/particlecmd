@@ -14,8 +14,8 @@ require 'particlecmd'
 #  d.option 'divide', argname: 'X', description: 'Divide the result by X'
 #end
 
-$sample = ParticleCMD::Definition.from_string 'add', 'a b -multiply -divide=X ...'
-puts $sample.inspect
+$sample = ParticleCMD::Definition.from_string 'add', 'hello world a-very-long-positional --foo --bar --a-very-long-flag --baz=BAZ --quux=QUUX --a-very-long-option=ASDF ...'
+puts $sample.help_message
 
 require 'shellwords'
 
