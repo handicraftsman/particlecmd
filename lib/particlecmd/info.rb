@@ -1,7 +1,8 @@
 class ParticleCMD::Info
-  attr_accessor :positionals, :flags, :options
+  attr_accessor :argv, :positionals, :flags, :options
   
   def initialize(argv)
+    @argv        = argv
     @positionals = []
     @flags       = []
     @options     = {}

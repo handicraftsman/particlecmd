@@ -114,6 +114,12 @@ class ParticleCMD::Definition
   end
 
   def match(info)
+    if @collecting && @positionals.empty? && @flags.empty? && @options.empty?
+      res = ParticleCMD::Result.new
+      res.extra = info.argv
+      return res
+    end
+
     if @collecting
       return nil if @positionals.length > info.positionals.length
     else
